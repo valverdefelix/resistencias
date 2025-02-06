@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Circuito</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background-image: url('https://firebasestorage.googleapis.com/v0/b/felixvalverdesan.appspot.com/o/fondoparaolvera.jpeg?alt=media&token=427e325b-44bd-47ab-85e8-f8b5943dc65d'); /* Fondo de página */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            min-height: 100vh;
+        }
+
+        /* Estilo para el cuadro que cubre el título */
+        .title-box {
+            background-color: rgba(0, 123, 255, 0.7); /* Fondo azul semitransparente */
+            color: white;
+            font-size: 24px;
+            padding: 20px;
+            width: 100%;
+            text-align: center;
+            position: absolute;
+            top: 20px; /* Para que quede cerca de la parte superior */
+            left: 0;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            background: rgba(228, 226, 226, 0.993); /* Fondo blanco con opacidad */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            max-width: 900px;
+            margin: auto;
+            position: relative;
+            margin-top: 80px; /* Para que no se superponga con el título */
+        }
+
+        .image-container img {
+            width: 500px;
+        }
+
+        .form-container {
+            text-align: left;
+        }
+
+        input {
+            width: 80px;
+            margin: 5px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <!-- Cuadro que cubre el título -->
+    <div class="title-box">
+        Calculadora de Circuito - Valverde Sánchez Felix Marlon
+    </div>
+
+    <div class="container">
+        <div class="image-container">
+            <img src="https://firebasestorage.googleapis.com/v0/b/trueque1709.appspot.com/o/Calculadora%2FCalculadora%20.jpg?alt=media&token=fd15ad1a-6960-4256-b292-bd7590c4dd55" alt="Circuito en Tinkercad">
+        </div>
+        <div class="form-container">
+            <label>Voltaje: 9V (fijo)</label><br>
+            <label>R1 (Ω): <input type="number" id="r1" value="1000"></label><br>
+            <label>R2 (Ω): <input type="number" id="r2" value="1000"></label><br>
+            <label>R3 (Ω): <input type="number" id="r3" value="1000"></label><br>
+            <button onclick="calcular()">Calcular</button>
+            
+            <h3>Resultados:</h3>
+            <p>iT: <span id="it"></span> mA</p>
+            <p>i1: <span id="i1"></span> mA</p>
+            <p>i2: <span id="i2"></span> mA</p>
+            <p>v1: <span id="v1"></span> V</p>
+            <p>v2: <span id="v2"></span> V</p>
+        </div>
+    </div>
+
+    <script>
+        function calcular() {
+            let V = 9; // Voltaje fijo
+            let R1 = parseFloat(document.getElementById("r1").value);
+            let R2 = parseFloat(document.getElementById("r2").value);
+            let R3 = parseFloat(document.getElementById("r3").value);
+            
+            let Rp = (R2 * R3) / (R2 + R3);
+            let RT = R1 + Rp;
+            let iT = V / RT; // corriente total en A
+            let v1 = iT * R1;
+            let v2 = V - v1;
+            let i1 = v2 / R2; // corriente i1 en A
+            let i2 = v2 / R3; // corriente i2 en A
+            
+            // Convertimos las corrientes a mA (multiplicamos por 1000)
+            document.getElementById("it").innerText = (iT * 1000).toFixed(2); // mA
+            document.getElementById("i1").innerText = (i1 * 1000).toFixed(2); // mA
+            document.getElementById("i2").innerText = (i2 * 1000).toFixed(2); // mA
+            document.getElementById("v1").innerText = v1.toFixed(2); // V
+            document.getElementById("v2").innerText = v2.toFixed(2); // V
+        }
+    </script>
+</body>
+</html>
